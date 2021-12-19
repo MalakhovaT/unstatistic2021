@@ -253,7 +253,7 @@
 					"source": {
 						"type": "AzureSqlSource",
 						"sqlReaderQuery": {
-							"value": "@replace('UPDATE [staging].[uncrime_untyped] SET [FileName] = \"variablefilename\" WHERE [FileName] IS NULL SELECT 1;'\n, 'variablefilename'\n, pipeline().parameters.FileName)",
+							"value": "@replace('UPDATE [staging].[uncrime_untyped] SET [FileName] = ''variablefilename'' WHERE [FileName] IS NULL; SELECT 1;'\n, 'variablefilename'\n, pipeline().parameters.FileName)",
 							"type": "Expression"
 						},
 						"queryTimeout": "02:00:00",
