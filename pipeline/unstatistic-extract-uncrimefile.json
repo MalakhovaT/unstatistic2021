@@ -260,7 +260,7 @@
 						"partitionOption": "None"
 					},
 					"dataset": {
-						"referenceName": "dst_sql_dammy",
+						"referenceName": "dst_sql_dummy",
 						"type": "DatasetReference"
 					}
 				}

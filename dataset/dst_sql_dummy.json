@@ -1,5 +1,5 @@
 {
-	"name": "dst_sql_dammy",
+	"name": "dst_sql_dummy",
 	"properties": {
 		"linkedServiceName": {
 			"referenceName": "unstatisticsqlsmtedevlinkedservice",

@@ -112,7 +112,7 @@
 						"partitionOption": "None"
 					},
 					"dataset": {
-						"referenceName": "dst_sql_dammy",
+						"referenceName": "dst_sql_dummy",
 						"type": "DatasetReference"
 					}
 				}
@@ -190,7 +190,7 @@
 						"partitionOption": "None"
 					},
 					"dataset": {
-						"referenceName": "dst_sql_dammy",
+						"referenceName": "dst_sql_dummy",
 						"type": "DatasetReference"
 					}
 				}
@@ -215,9 +215,7 @@
 				},
 				"userProperties": [],
 				"typeProperties": {
-					"fieldList": [
-						"childItems"
-					],
+					"fieldList": [],
 					"storeSettings": {
 						"type": "AzureBlobStorageReadSettings",
 						"recursive": true
