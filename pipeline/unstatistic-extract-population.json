@@ -912,7 +912,14 @@
 			{
 				"name": "Set variable PipelineExecutionStatus",
 				"type": "SetVariable",
-				"dependsOn": [],
+				"dependsOn": [
+					{
+						"activity": "Copy population",
+						"dependencyConditions": [
+							"Failed"
+						]
+					}
+				],
 				"userProperties": [],
 				"typeProperties": {
 					"variableName": "PipelineExecutionStatus",
