@@ -18,6 +18,14 @@
 		"unstatisticstac_connectionString": {
 			"type": "secureString",
 			"metadata": "Secure string for 'connectionString' of 'unstatisticstac'"
+		},
+		"unstatistickyvtmte_properties_typeProperties_baseUrl": {
+			"type": "string",
+			"defaultValue": "https://unstatistickyvt-mte-dev.vault.azure.net/"
+		},
+		"msbiazurelinkedservicekeyvault_properties_typeProperties_connectionString_secretName": {
+			"type": "string",
+			"defaultValue": "unstatisticsdwh-connectionstring"
 		}
 	},
 	"variables": {
@@ -3966,6 +3974,23 @@
 							"waitOnCompletion": true,
 							"parameters": {}
 						}
+					},
+					{
+						"name": "Fail1",
+						"type": "Fail",
+						"dependsOn": [
+							{
+								"activity": "unstatistic-extract-countries",
+								"dependencyConditions": [
+									"Failed"
+								]
+							}
+						],
+						"userProperties": [],
+						"typeProperties": {
+							"message": "unstatistic-extract-countries papeline failed",
+							"errorCode": "101"
+						}
 					}
 				],
 				"policy": {
@@ -3994,6 +4019,41 @@
 				"[concat(variables('factoryId'), '/pipelines/unstatistic-extract-countries')]",
 				"[concat(variables('factoryId'), '/pipelines/unstatistic-extract-population')]",
 				"[concat(variables('factoryId'), '/pipelines/unstatistic-master-extract-uncrimefile')]"
+			]
+		},
+		{
+			"name": "[concat(parameters('factoryName'), '/unstatistickyvtmte')]",
+			"type": "Microsoft.DataFactory/factories/linkedServices",
+			"apiVersion": "2018-06-01",
+			"properties": {
+				"annotations": [],
+				"type": "AzureKeyVault",
+				"typeProperties": {
+					"baseUrl": "[parameters('unstatistickyvtmte_properties_typeProperties_baseUrl')]"
+				}
+			},
+			"dependsOn": []
+		},
+		{
+			"name": "[concat(parameters('factoryName'), '/msbiazurelinkedservicekeyvault')]",
+			"type": "Microsoft.DataFactory/factories/linkedServices",
+			"apiVersion": "2018-06-01",
+			"properties": {
+				"annotations": [],
+				"type": "AzureSqlDatabase",
+				"typeProperties": {
+					"connectionString": {
+						"type": "AzureKeyVaultSecret",
+						"store": {
+							"referenceName": "unstatistickyvtmte",
+							"type": "LinkedServiceReference"
+						},
+						"secretName": "[parameters('msbiazurelinkedservicekeyvault_properties_typeProperties_connectionString_secretName')]"
+					}
+				}
+			},
+			"dependsOn": [
+				"[concat(variables('factoryId'), '/linkedServices/unstatistickyvtmte')]"
 			]
 		}
 	]
